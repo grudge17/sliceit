@@ -45,12 +45,12 @@ exports.getWordFrequency=(req,res)=>{
     var word=req.params['word']
     Word.findOne({'word':word}).then((doc)=>{
         if(doc){
-            console.log("Word's frequency is: "+ word.frequency)
-            return res.status(200).json(word.frequency)
+            console.log(doc.word+" frequency is "+ doc.frequency)
+            return res.status(200).json(doc.frequency)
         }
         else{
-            console.log(word+ ": not found")
-            return res.status(400).json({message:word+": not found"})
+            console.log(word+ " not found")
+            return res.status(400).json({message:word+" not found"})
         }
         })
 

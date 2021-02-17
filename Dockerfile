@@ -1,13 +1,16 @@
-FROM node:14
-
-ENV NODE_ENV=production
-
-WORKDIR /slice
+#FROM node:14
 
 
-COPY ["package.json", "package*.json", "./"]
-RUN npm install --production
 
-COPY . .
+#WORKDIR /usr/local/slice
+#COPY ./ /usr/local/slice
 
-CMD ["npm", "start"]
+#RUN npm install 
+
+#CMD ["npm", "start"]
+
+FROM node:12-alpine
+ WORKDIR /slice
+ COPY . .
+ RUN npm install 
+ CMD ["npm", "start"]
