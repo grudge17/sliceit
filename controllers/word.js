@@ -4,21 +4,24 @@ exports.addWord=(req,res)=>{
     var word=req.params['word']
     Word.findOne({'word':word}).then((doc)=>{
     if(doc){
+        console.log("Word found in the system: "+ word);
         Word.updateOne(
                      {'word':word}, // filter query
                     {$inc: {frequency: 1}}, // if word found increment count by 1
                     function(err, result) {
+
                         if (err){
                             console.log("Could not update word: "+ word + " error:" + err);
+                            return res.status(500).json("Could not update frequency for word: "+ word);
                         }
-                        else{
-                            
-                    return res.status(200).json(doc)
-                             console.log("Frequency updated for word: " + word);
-                             console.log(result); 
-                        }
+
+                        console.log("Frequency updated for word: " + word);
+                        //console.log(result);  
+                        return res.status(200).json("Word already in the system. updated frequency")
+                              
                     }
                 )
+                
     }
     else{
         // if doc not found then insert document for the new word with count with default(1)
